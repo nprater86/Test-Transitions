@@ -1,9 +1,11 @@
+/*reset the body margins and make page light blue*/
 body {
     background-color: lightblue;
     margin: 0;
     padding: 25px 0 0 0;
 }
 
+/*size and style the arrow keys*/
 .arrow {
     height: 50px;
     width: 50px;
@@ -28,6 +30,7 @@ body {
     left: 2px;
 }
 
+/*style the banner, which is the circle where the pokemon are display*/
 .banner {
     display: flex;
     justify-content: center;
@@ -41,13 +44,13 @@ body {
     height: 475px;
     background-color: white;
     display: flex;
-    overflow: hidden;
-    border-radius: 50%;
+    overflow: hidden; /*making the overflow hidden so that you can't see the pokemon to the right or left*/
+    border-radius: 50%; /*circle looked nicer than a big square*/
 }
 
 #blueBox {
     position: relative;
-    transition: left 0.5s, right 0.5s;
+    transition: left 0.5s, right 0.5s; /*making it so that the images moving left and right do so over 0.5 seconds instead of instantly */
     right: 0px;
 }
 
@@ -63,6 +66,12 @@ body {
     right: 0px;
 }
 
+/*styling the h1 under the image*/
+#pokeName {
+    color: green;
+}
+
+/*styling the choice button*/
 .picker {
     display: flex;
     flex-direction: column;
@@ -72,8 +81,4 @@ body {
 .picker .button {
     width: 150px;
     height: 50px;
-}
-
-#pokeName {
-    color: green;
 }
