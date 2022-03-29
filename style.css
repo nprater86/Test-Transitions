@@ -3,6 +3,23 @@ body {
     background-color: lightblue;
     margin: 0;
     padding: 25px 0 0 0;
+    font-family: var(--pokeFont);
+    letter-spacing: 5px;
+}
+
+:root {
+    --pokeFont: 'Pokemon Solid', sans-serif;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro {
+    color: yellow;
+    -webkit-text-stroke: 1px blue;
 }
 
 /*size and style the arrow keys*/
@@ -69,6 +86,7 @@ body {
 /*styling the h1 under the image*/
 #pokeName {
     color: green;
+    text-shadow: 2px 2px black;
 }
 
 /*styling the choice button*/
@@ -81,4 +99,5 @@ body {
 .picker .button {
     width: 150px;
     height: 50px;
+    font-family: var(--pokeFont);
 }
