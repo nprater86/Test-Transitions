@@ -6,8 +6,8 @@ var squirtle = document.getElementById('blueBox');
 var bulbasaur = document.getElementById('greenBox');
 var pokeNameDisplay = document.getElementById('pokeName');
 var position = 0;
-var pokeName = 'Bulbasaur';
-var pokeNameColor = 'green';
+var pokeName = '';
+var pokeNameColor = '';
 
 rightArrow.onclick = moveRight;
 leftArrow.onclick = moveLeft;
@@ -21,6 +21,7 @@ function moveRight() {
         bulbasaur.style.right = `${position}px`;
     }
     updatePokeName();
+    checkdisableButton();
 }
 
 
@@ -33,6 +34,7 @@ function moveLeft() {
         bulbasaur.style.right = `${position}px`;
     }
     updatePokeName();
+    checkdisableButton();
 }
 
 function updatePokeName(){
@@ -73,3 +75,17 @@ function reset(element) {
     updatePokeName();
     choice.onclick = choiceMade;
 }
+
+function checkdisableButton(){
+    if(position === 0){
+        leftArrow.style.display = 'none';
+    } else if (position === 950){
+        rightArrow.style.display = 'none';
+    } else {
+        leftArrow.style.display = 'flex';
+        rightArrow.style.display = 'flex';
+    }
+}
+
+updatePokeName();
+checkdisableButton();

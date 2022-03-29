@@ -8,28 +8,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="banner">
-        <div id="arrowLeft" class="arrow">
-            <button class="button"><</button>
-        </div>
-        <div class="boxes">
-            <div id="greenBox" class="box">
-                <img src="./001.png" alt="">
+    <div class="main">
+        <div class="banner">
+            <div class="arrow">
+                <button id="arrowLeft" class="button"><</button>
             </div>
-            <div id="blueBox" class="box">
-                <img src="./007.png" alt="">
+            <div class="boxes">
+                <div id="greenBox" class="box">
+                    <img src="./001.png" alt="">
+                </div>
+                <div id="blueBox" class="box">
+                    <img src="./007.png" alt="">
+                </div>
+                <div id="redBox" class="box">
+                    <img src="./004.png" alt="">
+                </div>
             </div>
-            <div id="redBox" class="box">
-                <img src="./004.png" alt="">
+            <div class="arrow">
+                <button id="arrowRight" class="button">></button>
             </div>
         </div>
-        <div id="arrowRight" class="arrow">
-            <button class="button">></button>
+        <div class="picker">
+            <h1 id="pokeName">Bulbasaur</h1>
+            <button id="choice" class="button" onclick="choiceMade(this)">I choose you!</button>
         </div>
-    </div>
-    <div class="picker">
-        <h1 id="pokeName">Bulbasaur</h1>
-        <button id="choice" class="button" onclick="choiceMade(this)">I choose you!</button>
     </div>
     <script src="./script.js"></script>
 </body>
