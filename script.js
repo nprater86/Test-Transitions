@@ -5,9 +5,12 @@ var charmander = document.getElementById('redBox'); //grabs the charmander box
 var squirtle = document.getElementById('blueBox'); //grabs the squirtle box
 var bulbasaur = document.getElementById('greenBox'); //grabs the bulbasaur box
 var pokeNameDisplay = document.getElementById('pokeName'); //grabs the #pokeName h1
+var pokeBorder = document.querySelector('.boxes');
+console.log(pokeBorder);
 var position = 0; //position will be used to move the images left or right
 var pokeName = ''; //this variable will be updated in a function to be put into the pokeNameDisplay.innerHTML
 var pokeNameColor = ''; //this variable will be updated in a function to be put into pokeNameDisplay.style.color
+var pokeBorderColor = '';
 
 rightArrow.onclick = moveRight; //setting rightArrow arrow to activate moveRight() on click
 leftArrow.onclick = moveLeft; //setting leftArrow to activate moveRight() on click
@@ -41,15 +44,19 @@ function updatePokeName(){ //this function checks the position value and updates
     if (position === 0){
         pokeName = 'Bulbasaur';
         pokeNameColor = 'green';
+        pokeBorderColor = '5px solid green';
     } else if (position === 475) {
         pokeName = 'Squirtle';
         pokeNameColor = 'blue';
+        pokeBorderColor = '5px solid blue';
     } else if (position === 950) {
         pokeName = 'Charmander';
         pokeNameColor = 'red';
+        pokeBorderColor = '5px solid red';
     }
     pokeNameDisplay.innerHTML = pokeName;
     pokeNameDisplay.style.color = pokeNameColor;
+    pokeBorder.style.border = pokeBorderColor;
 }
 
 function choiceMade() { //this determines what happens when choice is clicked

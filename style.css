@@ -63,6 +63,7 @@ body {
     display: flex;
     overflow: hidden; /*making the overflow hidden so that you can't see the pokemon to the right or left*/
     border-radius: 50%; /*circle looked nicer than a big square*/
+    border: 5px solid green;
 }
 
 #blueBox {
