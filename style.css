@@ -102,3 +102,21 @@ body {
     height: 50px;
     font-family: var(--pokeFont);
 }
+
+@media only screen and (max-width: 480px){
+    .intro {
+        width: 75%;
+        text-align: center;
+        line-height: 50px;
+    }
+
+    .boxes {
+        width: 237.5px;
+        height: 237.5px;
+    }
+
+    .boxes img {
+        width: 237.5px;
+        height: 237.5px;
+    }
+}

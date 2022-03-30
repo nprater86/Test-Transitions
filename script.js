@@ -6,7 +6,7 @@ var squirtle = document.getElementById('blueBox'); //grabs the squirtle box
 var bulbasaur = document.getElementById('greenBox'); //grabs the bulbasaur box
 var pokeNameDisplay = document.getElementById('pokeName'); //grabs the #pokeName h1
 var pokeBorder = document.querySelector('.boxes');
-console.log(pokeBorder);
+var mobileScreen = window.matchMedia("(max-width: 480px)")
 var position = 0; //position will be used to move the images left or right
 var pokeName = ''; //this variable will be updated in a function to be put into the pokeNameDisplay.innerHTML
 var pokeNameColor = ''; //this variable will be updated in a function to be put into pokeNameDisplay.style.color
@@ -17,11 +17,17 @@ leftArrow.onclick = moveLeft; //setting leftArrow to activate moveRight() on cli
 choice.onclick = choiceMade; //setting choice to activate choiceMade() on click
 
 function moveRight() { //this function will add 475px to each image's position then update their position
-    if (position < 950) { //checks to make sure that we can't scroll too far to the right since 950 would be charmander
-        position += 475; //adds 475 to position
-        charmander.style.right = `${position}px`; //updates all the image positions from the right
-        squirtle.style.right = `${position}px`;
-        bulbasaur.style.right = `${position}px`;
+    applyAnimations();
+    if(mobileScreen.matches){
+        if (position < 475) {
+            position += 237.5; 
+            updatePosition();
+        }
+    } else {
+        if (position < 950) { //checks to make sure that we can't scroll too far to the right since 950 would be charmander
+            position += 475; //adds 475 to position
+            updatePosition();
+        }
     }
     updatePokeName(); //calls the updatePokeName function
     checkdisableButton(); //calls the check disabled button function (explained below)
@@ -30,29 +36,51 @@ function moveRight() { //this function will add 475px to each image's position t
 
 
 function moveLeft() { //similar to moveRight except it subtracts 475 from the position
-    if (position > 0) { //checks to make sure we're not 0. If position is 0, we're the farthest left we can go
-        position -= 475;
-        charmander.style.right = `${position}px`;
-        squirtle.style.right = `${position}px`;
-        bulbasaur.style.right = `${position}px`;
+    applyAnimations();
+    if(mobileScreen.matches){
+        if (position > 0) { //checks to make sure we're not 0. If position is 0, we're the farthest left we can go
+        position -= 237.5;
+        updatePosition();
+        }
+    } else {
+        if (position > 0) { //checks to make sure we're not 0. If position is 0, we're the farthest left we can go
+            position -= 475;
+            updatePosition();
+        }
     }
     updatePokeName();
     checkdisableButton();
 }
 
 function updatePokeName(){ //this function checks the position value and updates pokeNameDisplay accordingly
-    if (position === 0){
-        pokeName = 'Bulbasaur';
-        pokeNameColor = 'green';
-        pokeBorderColor = '5px solid green';
-    } else if (position === 475) {
-        pokeName = 'Squirtle';
-        pokeNameColor = 'blue';
-        pokeBorderColor = '5px solid blue';
-    } else if (position === 950) {
-        pokeName = 'Charmander';
-        pokeNameColor = 'red';
-        pokeBorderColor = '5px solid red';
+    if(mobileScreen.matches) {
+        if (position === 0){
+            pokeName = 'Bulbasaur';
+            pokeNameColor = 'green';
+            pokeBorderColor = '5px solid green';
+        } else if (position === 237.5) {
+            pokeName = 'Squirtle';
+            pokeNameColor = 'blue';
+            pokeBorderColor = '5px solid blue';
+        } else if (position === 475) {
+            pokeName = 'Charmander';
+            pokeNameColor = 'red';
+            pokeBorderColor = '5px solid red';
+        }
+    } else {
+        if (position === 0){
+            pokeName = 'Bulbasaur';
+            pokeNameColor = 'green';
+            pokeBorderColor = '5px solid green';
+        } else if (position === 475) {
+            pokeName = 'Squirtle';
+            pokeNameColor = 'blue';
+            pokeBorderColor = '5px solid blue';
+        } else if (position === 950) {
+            pokeName = 'Charmander';
+            pokeNameColor = 'red';
+            pokeBorderColor = '5px solid red';
+        }
     }
     pokeNameDisplay.innerHTML = pokeName;
     pokeNameDisplay.style.color = pokeNameColor;
@@ -62,13 +90,24 @@ function updatePokeName(){ //this function checks the position value and updates
 function choiceMade() { //this determines what happens when choice is clicked
     leftArrow.style.display = 'none'; 
     rightArrow.style.display = 'none'; //makes the arrow buttons disappear
-    if (position === 0){ //these check the positions and updates pokeName accordingly
-        pokeName = 'You chose Bulbasaur!';
-    } else if (position === 475) {
-        pokeName = 'You chose Squirtle!';
-    } else if (position === 950) {
-        pokeName = 'You chose Charmander!';
-        pokeNameColor = 'red';
+    if(mobileScreen.matches) {
+        if (position === 0){ //these check the positions and updates pokeName accordingly
+            pokeName = 'You chose Bulbasaur!';
+        } else if (position === 237.5) {
+            pokeName = 'You chose Squirtle!';
+        } else if (position === 475) {
+            pokeName = 'You chose Charmander!';
+            pokeNameColor = 'red';
+        }
+    } else {
+        if (position === 0){ //these check the positions and updates pokeName accordingly
+            pokeName = 'You chose Bulbasaur!';
+        } else if (position === 475) {
+            pokeName = 'You chose Squirtle!';
+        } else if (position === 950) {
+            pokeName = 'You chose Charmander!';
+            pokeNameColor = 'red';
+        }
     }
     pokeNameDisplay.innerHTML = pokeName; //updates the innerHTML of pokeNameDisplay
     choice.innerHTML = 'Change your mind?'; //updates the choice button to ask if the user would like to rechoose
@@ -85,15 +124,138 @@ function reset(element) { //this brings the arrow keys back and then resets the 
 }
 
 function checkdisableButton(){ //made this function because I wanted to hide the arrow keys if you were at the end of the choice e.g. if on Bulbasaur, then disable left arrow since there are no pokemon to the left of them
-    if(position === 0){
-        leftArrow.style.display = 'none';
-    } else if (position === 950){
-        rightArrow.style.display = 'none';
+    if(mobileScreen.matches){
+        if(position === 0){
+            leftArrow.style.display = 'none';
+        } else if (position === 475){
+            rightArrow.style.display = 'none';
+        } else {
+            leftArrow.style.display = 'flex';
+            rightArrow.style.display = 'flex';
+        }
     } else {
-        leftArrow.style.display = 'flex';
-        rightArrow.style.display = 'flex';
+        if(position === 0){
+            leftArrow.style.display = 'none';
+        } else if (position === 950){
+            rightArrow.style.display = 'none';
+        } else {
+            leftArrow.style.display = 'flex';
+            rightArrow.style.display = 'flex';
+        }
     }
 }
 
+function updatePosition(){
+    charmander.style.right = `${position}px`;
+    squirtle.style.right = `${position}px`;
+    bulbasaur.style.right = `${position}px`;
+    console.log(position);
+}
+
+var previousScreenMobile = true;
+var previousScreenDesktop = false;
+var mobileScreenOn = false;
+var desktopScreenOn = true;
+
+function updateScreenPositions(){
+    if(previousScreenDesktop != mobileScreenOn){
+        if(position === 950) {
+            position = 475;
+            updatePokeName();
+            checkdisableButton();
+            removeAnimations();
+            updatePosition();
+            console.log('updateScreen triggered');
+        } else if (position === 475) {
+            position = 237.5;
+            updatePokeName();
+            checkdisableButton();
+            removeAnimations();
+            updatePosition();
+            console.log('updateScreen triggered');
+        }
+        previousScreenDesktop = true;
+        previousScreenMobile = false;
+    } else if (previousScreenMobile != desktopScreenOn) {
+        if(position === 475){
+            position = 950;
+            updatePokeName();
+            checkdisableButton();
+            removeAnimations();
+            updatePosition();
+            console.log('updateScreen triggered');
+        } else if (position === 237.5) {
+            position = 475;
+            updatePokeName();
+            checkdisableButton();
+            removeAnimations();
+            updatePosition();
+            console.log('updateScreen triggered');
+        }
+        previousScreenDesktop = false;
+        previousScreenMobile = true;
+    }
+}
+
+
+function updateScreen(){
+    if(mobileScreen.matches){
+        mobileScreenOn = true;
+        desktopScreenOn = false;
+        updateScreenPositions()
+    } else {
+        mobileScreenOn = false;
+        desktopScreenOn = true;
+        updateScreenPositions()
+    }
+    // if(mobileScreen.matches) {
+    //     if(position === 950) {
+    //         position = 475;
+    //         updatePokeName();
+    //         checkdisableButton();
+    //         removeAnimations();
+    //         updatePosition();
+    //         console.log('updateScreen triggered');
+    //     } else if (position === 475) {
+    //         position = 237.5;
+    //         updatePokeName();
+    //         checkdisableButton();
+    //         removeAnimations();
+    //         updatePosition();
+    //         console.log('updateScreen triggered');
+    //     }
+    // } else {
+    //     if(position === 475){
+    //         position = 950;
+    //         updatePokeName();
+    //         checkdisableButton();
+    //         removeAnimations();
+    //         updatePosition();
+    //         console.log('updateScreen triggered');
+    //     } else if (position === 237.5) {
+    //         position = 475;
+    //         updatePokeName();
+    //         checkdisableButton();
+    //         removeAnimations();
+    //         updatePosition();
+    //         console.log('updateScreen triggered');
+    //     }
+    // }
+}
+
+function removeAnimations(){
+    squirtle.style.transition = 'none'
+    charmander.style.transition = 'none'
+    bulbasaur.style.transition = 'none'
+}
+
+function applyAnimations(){
+    squirtle.style.transition = 'left 0.5s, right 0.5s'
+    charmander.style.transition = 'left 0.5s, right 0.5s'
+    bulbasaur.style.transition = 'left 0.5s, right 0.5s'
+}
+
+window.addEventListener('resize', updateScreen);
 updatePokeName(); 
-checkdisableButton(); //calls both of these functions to initialize the pokemon names and and check buttons
+checkdisableButton();
+updatePosition(); //calls these functions to initialize the pokemon names and and check buttons
